@@ -1,0 +1,19 @@
+---
+- name: configure the database server
+  hosts: server
+  user: student
+  become: trueA
+  vars_files:
+    - vars/main.yml
+  tasks:
+
+  - name: set password for root access
+    mysql_user:
+      login_host: "localhost"
+      login_user: "root"
+      login_password: ""
+      user: "root"
+      password: "{{ mysql_root_password }}"
+      state: present
+
+

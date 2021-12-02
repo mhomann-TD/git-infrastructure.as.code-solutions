@@ -1,0 +1,62 @@
+---
+- name: update DNF cache on all hosts
+  hosts: all
+  user: student
+  become: true
+  tasks:
+
+  - name: Update DNF Package repository cache
+    dnf:
+      update_cache: True
+
+- name: install and enable mysqld on server
+  hosts: server
+  user: student
+  become: True
+  tasks:
+
+  - name: Install MySQL server on CentOS 8
+    dnf:
+      name: mariadb-server
+      state: present
+
+  - name: Install MySQL client on CentOS 8
+    dnf:
+      name: mariadb
+      state: present
+
+  - name: Make sure mysqld service is running
+    service:
+      name: mariadb
+      state: started
+      enabled: True
+
+  - name: Install python3-PyMySQL library
+    dnf:
+      name: python3-PyMySQL
+      state: present
+
+- name: install mysql client on workstation
+  hosts: workstation
+  user: student
+  become: true
+  tasks:
+
+  - name: install mysql client
+    dnf:
+      name: mariadb
+      state: present
+
+- name: open mysql firewall port on server
+  hosts: server
+  user: student
+  become: true
+  tasks:
+
+  - name: open firewall port for mysql
+    firewalld:
+      service: mysql
+      state: enabled
+      permanent: yes
+      immediate: yes
+

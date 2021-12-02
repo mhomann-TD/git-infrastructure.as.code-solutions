@@ -1,0 +1,28 @@
+---
+- name: configure the database server, part two
+  hosts: server
+  user: student
+  become: true
+  vars_files:
+    - vars/main.yml
+  tasks:
+
+  - name: create db user
+    mysql_user:
+      login_host: "localhost"
+      login_user: "root"
+      login_password: "{{ mysql_root_password }}"
+      user: "dbuser"
+      host: "%"
+      priv: "dbuser_%.*:ALL"
+      password: "{{ mysql_dbuser_password }}"
+      state: present
+
+  - name: create a demo database
+    mysql_db:
+      login_host: "localhost"
+      login_user: "root"
+      login_password: "{{ mysql_root_password }}"
+      name: "dbuser_test1"
+      state: present
+

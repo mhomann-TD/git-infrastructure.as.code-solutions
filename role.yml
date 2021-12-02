@@ -1,0 +1,10 @@
+---
+- name: install and configure mysql the elegant way
+  hosts: server
+  become: yes
+  vars_files:
+    - vars/role.yml
+
+  roles:
+    - { role: geerlingguy.mysql }
+
