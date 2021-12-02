@@ -1,15 +1,3 @@
-mysql_packages:
-  - mariadb-server
-  - mariadb-client
-  - python-mariadb
-mysql_root_password: sup3rs3cur3
-mysql_databases:
-  - name: example_db
-    encoding: latin1
-    collation: latin1_general_ci
-mysql_users:
-  - name: example_user
-    host: "%"
-    password: alm0sts3cure
-    priv: "example_db.*:ALL"
+mysql_root_password: Sup3rS3cur3
+mysql_dbuser_password: N0tS0S3cur3
 
